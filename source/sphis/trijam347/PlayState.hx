@@ -1,5 +1,6 @@
 package sphis.trijam347;
 
+import flixel.FlxG;
 import lime.utils.Assets;
 import flixel.FlxState;
 import flixel.group.FlxSpriteGroup;
@@ -38,6 +39,8 @@ class PlayState extends FlxState
 			y++;
 			x = 0;
 		}
+
+		FlxG.camera.zoom = 2;
 	}
 
 	override public function update(elapsed:Float)
