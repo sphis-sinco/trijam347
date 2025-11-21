@@ -132,7 +132,7 @@ class PlayState extends FlxState
 			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
 				{
-					player.x += player.width;
+					player.x += player.width / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 					FlxFlicker.flicker(tile, .2);
 				}
 		}
@@ -145,7 +145,7 @@ class PlayState extends FlxState
 			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
 				{
-					player.x -= player.width;
+					player.x -= player.width / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 					FlxFlicker.flicker(tile, .2);
 				}
 		}
@@ -158,7 +158,7 @@ class PlayState extends FlxState
 			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
 				{
-					player.y += player.height;
+					player.y += player.height / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 					FlxFlicker.flicker(tile, .2);
 				}
 		}
@@ -170,7 +170,7 @@ class PlayState extends FlxState
 			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
 				{
-					player.y -= player.height;
+					player.y -= player.height / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 					FlxFlicker.flicker(tile, .2);
 				}
 		}
