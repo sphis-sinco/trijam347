@@ -33,7 +33,7 @@ class PlayState extends FlxState
 					mapTiles.add(tile_sprite);
 				}
 
-				if (x >= 16)
+				if (x > 16)
 				{
 					y++;
 					x = 0;
@@ -41,6 +41,7 @@ class PlayState extends FlxState
 
 				x++;
 			}
+			trace(x);
 		}
 	}
 
