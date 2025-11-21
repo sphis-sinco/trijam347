@@ -186,13 +186,13 @@ class PlayState extends FlxState
 			switch (player.dir)
 			{
 				case 0:
-					player.x -= player.width;
+					player.x -= player.width / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 				case 1:
-					player.x += player.width;
+					player.x += player.width / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 				case 2:
-					player.y -= player.height;
+					player.y -= player.height / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 				case 3:
-					player.y += player.height;
+					player.y += player.height / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 			}
 
 			dirty_tiles = dirty_tiles_start;
@@ -233,13 +233,13 @@ class PlayState extends FlxState
 			switch (player.dir)
 			{
 				case 0:
-					player.x += player.width;
+					player.x += player.width / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 				case 1:
-					player.x -= player.width;
+					player.x -= player.width / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 				case 2:
-					player.y += player.height;
+					player.y += player.height / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 				case 3:
-					player.y -= player.height;
+					player.y -= player.height / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 			}
 		}
 	}
