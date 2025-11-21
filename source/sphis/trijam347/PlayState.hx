@@ -69,9 +69,8 @@ class PlayState extends FlxState
 		objective.size = 16;
 		objective.text = "Clean up your mess.";
 		add(objective);
-		objective.visible = true;
 		objective.scrollFactor.set();
-		objective.y = FlxG.height - objective.height;
+		objective.screenCenter();
 	}
 
 	public function readMap(name:String = 'map'):FlxTypedGroup<Tile>
