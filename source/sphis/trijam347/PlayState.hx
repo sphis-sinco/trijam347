@@ -207,14 +207,13 @@ class PlayState extends FlxState
 
 							if (dirty_tiles == 0)
 							{
-								if (next_level != null)
+								FlxG.camera.fade(FlxColor.BLACK, 1, false, () ->
 								{
-									FlxG.switchState(() -> new PlayState(next_level));
-								}
-								else
-								{
-									FlxG.switchState(() -> new GameOver());
-								}
+									if (next_level != null)
+										FlxG.switchState(() -> new PlayState(next_level));
+									else
+										FlxG.switchState(() -> new GameOver());
+								});
 							}
 							else
 							{
