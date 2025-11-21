@@ -22,7 +22,7 @@ class PlayState extends FlxState
 		var y = 0;
 		for (tileGroup in map.split('\n'))
 		{
-			for (tile in tileGroup.split(''))
+			for (tile in tileGroup.split(' '))
 			{
 				if (Std.parseInt(tile) != 0)
 				{
