@@ -130,10 +130,11 @@ class PlayState extends FlxState
 			player.x -= player.width / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 
 			for (tile in map_tiles.members)
-				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
+				if (player.overlaps(tile) && tile.exists)
 				{
-					player.x += player.width / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 					FlxFlicker.flicker(tile, .2);
+					if (tile.has_collisions)
+						player.x += player.width / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 				}
 		}
 		if (FlxG.keys.anyJustReleased([D, RIGHT]))
@@ -143,10 +144,11 @@ class PlayState extends FlxState
 			player.x += player.width / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 
 			for (tile in map_tiles.members)
-				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
+				if (player.overlaps(tile) && tile.exists)
 				{
-					player.x -= player.width / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 					FlxFlicker.flicker(tile, .2);
+					if (tile.has_collisions)
+						player.x -= player.width / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 				}
 		}
 
@@ -156,10 +158,11 @@ class PlayState extends FlxState
 			player.y -= player.height / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 
 			for (tile in map_tiles.members)
-				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
+				if (player.overlaps(tile) && tile.exists)
 				{
-					player.y += player.height / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 					FlxFlicker.flicker(tile, .2);
+					if (tile.has_collisions)
+						player.y += player.height / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 				}
 		}
 		if (FlxG.keys.anyJustReleased([S, DOWN]))
@@ -168,10 +171,11 @@ class PlayState extends FlxState
 			player.y += player.height / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 
 			for (tile in map_tiles.members)
-				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
+				if (player.overlaps(tile) && tile.exists)
 				{
-					player.y -= player.height / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 					FlxFlicker.flicker(tile, .2);
+					if (tile.has_collisions)
+						player.y -= player.height / ((FlxG.keys.pressed.SHIFT) ? 2 : 1);
 				}
 		}
 
