@@ -20,6 +20,13 @@ class PlayState extends FlxState
 		var y = 0;
 		for (tile in map.split('\n'))
 		{
+			if (Std.parseInt(tile) > 0)
+			{
+				var tile_sprite = new Tile(Std.parseInt(tile) - 1);
+				tile_sprite.setPosition(x * 8, y * 8);
+				mapTiles.add(tile_sprite);
+			}
+
 			if (x >= 16)
 			{
 				y++;
@@ -27,13 +34,6 @@ class PlayState extends FlxState
 			}
 
 			x++;
-
-			if (Std.parseInt(tile) > 0)
-			{
-				var tile_sprite = new Tile(Std.parseInt(tile) - 1);
-				tile_sprite.setPosition(x * 8, y * 8);
-				mapTiles.add(tile_sprite);
-			}
 		}
 	}
 
