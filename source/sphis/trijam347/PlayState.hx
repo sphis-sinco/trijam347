@@ -11,6 +11,8 @@ class PlayState extends FlxState
 {
 	var mapTiles:FlxSpriteGroup;
 
+	var player:Player;
+
 	override public function create()
 	{
 		super.create();
@@ -39,6 +41,9 @@ class PlayState extends FlxState
 			y++;
 			x = 0;
 		}
+
+		player = new Player();
+		add(player);
 
 		FlxG.camera.zoom = 2;
 	}
