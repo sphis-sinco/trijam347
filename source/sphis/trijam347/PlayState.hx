@@ -36,7 +36,7 @@ class PlayState extends FlxState
 		player.scale.set(2, 2);
 		player.updateHitbox();
 
-		var startPosFile:Array<String> = Assets.exists('assets/data/map-' + level + '.txt') ? Assets.getText('assets/data/map-' + level + '.txt')
+		var startPosFile:Array<String> = Assets.exists('assets/data/map-' + level + '-startpos.txt') ? Assets.getText('assets/data/map-' + level + '-startpos.txt')
 			.split('\n') : ['0', '0'];
 		var startPosX:Int = Std.parseInt(startPosFile[0]);
 		var startPosY:Int = Std.parseInt(startPosFile[1]);
