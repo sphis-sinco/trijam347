@@ -58,13 +58,39 @@ class PlayState extends FlxState
 		super.update(elapsed);
 
 		if (FlxG.keys.anyJustReleased([A, LEFT]))
+		{
+			player.flipX = false;
 			player.x -= player.width;
+
+			for (tile in mapTiles.members)
+				if (player.overlaps(tile))
+					player.x -= player.width;
+		}
 		if (FlxG.keys.anyJustReleased([D, RIGHT]))
+		{
+			player.flipX = true;
 			player.x += player.width;
 
+			for (tile in mapTiles.members)
+				if (player.overlaps(tile))
+					player.x += player.width;
+		}
+
 		if (FlxG.keys.anyJustReleased([W, UP]))
+		{
 			player.y -= player.height;
+
+			for (tile in mapTiles.members)
+				if (player.overlaps(tile))
+					player.y += player.height;
+		}
 		if (FlxG.keys.anyJustReleased([S, DOWN]))
+		{
 			player.y += player.height;
+
+			for (tile in mapTiles.members)
+				if (player.overlaps(tile))
+					player.y -= player.height;
+		}
 	}
 }
