@@ -46,24 +46,25 @@ class PlayState extends FlxState
 		player.screenCenter();
 		player.scale.set(2, 2);
 		player.updateHitbox();
+		player.animation.play('walk');
 		add(player);
 
 		FlxG.camera.zoom = 2;
-		FlxG.camera.follow(player, LOCKON, .5);
+		FlxG.camera.follow(player, LOCKON, 1);
 	}
 
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-		if (FlxG.keys.anyPressed([A, LEFT]))
-			player.x -= 10;
-		if (FlxG.keys.anyPressed([D, RIGHT]))
-			player.x += 10;
+		if (FlxG.keys.anyJustReleased([A, LEFT]))
+			player.x -= player.width;
+		if (FlxG.keys.anyJustReleased([D, RIGHT]))
+			player.x += player.width;
 
-		if (FlxG.keys.anyPressed([W, UP]))
-			player.y -= 10;
-		if (FlxG.keys.anyPressed([S, DOWN]))
-			player.y += 10;
+		if (FlxG.keys.anyJustReleased([W, UP]))
+			player.y -= player.height;
+		if (FlxG.keys.anyJustReleased([S, DOWN]))
+			player.y += player.height;
 	}
 }
