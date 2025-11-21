@@ -64,7 +64,7 @@ class PlayState extends FlxState
 
 			for (tile in mapTiles.members)
 				if (player.overlaps(tile))
-					player.x -= player.width;
+					player.x += player.width;
 		}
 		if (FlxG.keys.anyJustReleased([D, RIGHT]))
 		{
@@ -73,7 +73,7 @@ class PlayState extends FlxState
 
 			for (tile in mapTiles.members)
 				if (player.overlaps(tile))
-					player.x += player.width;
+					player.x -= player.width;
 		}
 
 		if (FlxG.keys.anyJustReleased([W, UP]))
