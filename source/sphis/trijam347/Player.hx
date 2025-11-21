@@ -4,6 +4,8 @@ import flixel.FlxSprite;
 
 class Player extends FlxSprite
 {
+	public var dir:Int = 0;
+
 	override public function new()
 	{
 		super();

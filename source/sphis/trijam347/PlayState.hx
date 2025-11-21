@@ -48,6 +48,7 @@ class PlayState extends FlxState
 		player.setPosition((7 * 8) * 4, (13 * 8) * 4);
 		player.animation.play('walk');
 		add(player);
+		player.dir = 0;
 
 		FlxG.camera.zoom = 2;
 		FlxG.camera.follow(player, LOCKON, 1);
@@ -60,6 +61,7 @@ class PlayState extends FlxState
 		if (FlxG.keys.anyJustReleased([A, LEFT]))
 		{
 			player.flipX = false;
+			player.dir = 0;
 			player.x -= player.width;
 
 			for (tile in mapTiles.members)
@@ -69,6 +71,7 @@ class PlayState extends FlxState
 		if (FlxG.keys.anyJustReleased([D, RIGHT]))
 		{
 			player.flipX = true;
+			player.dir = 1;
 			player.x += player.width;
 
 			for (tile in mapTiles.members)
@@ -78,6 +81,7 @@ class PlayState extends FlxState
 
 		if (FlxG.keys.anyJustReleased([W, UP]))
 		{
+			player.dir = 2;
 			player.y -= player.height;
 
 			for (tile in mapTiles.members)
@@ -86,11 +90,43 @@ class PlayState extends FlxState
 		}
 		if (FlxG.keys.anyJustReleased([S, DOWN]))
 		{
+			player.dir = 3;
 			player.y += player.height;
 
 			for (tile in mapTiles.members)
 				if (player.overlaps(tile) && tile.has_collisions)
 					player.y -= player.height;
+		}
+
+		if (FlxG.keys.anyJustReleased([ENTER]))
+		{
+			switch (player.dir)
+			{
+				case 0:
+					player.x -= player.width;
+				case 1:
+					player.x += player.width;
+				case 2:
+					player.y -= player.height;
+				case 3:
+					player.y += player.height;
+			}
+
+			for (tile in mapTiles.members)
+				if (player.overlaps(tile))
+					tile.interaction();
+
+			switch (player.dir)
+			{
+				case 0:
+					player.x += player.width;
+				case 1:
+					player.x -= player.width;
+				case 2:
+					player.y += player.height;
+				case 3:
+					player.y -= player.height;
+			}
 		}
 	}
 }
