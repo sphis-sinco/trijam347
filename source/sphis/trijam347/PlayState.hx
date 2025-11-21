@@ -25,9 +25,11 @@ class PlayState extends FlxState
 	var dirty_tiles_start:Int = 0;
 	var dirty_tiles:Int = 0;
 
-	override public function new(level:String = '1')
+	override public function new(level:String = null)
 	{
 		super();
+		if (level == null)
+			level = Assets.getText('assets/data/starting_map.txt') ?? '1';
 		this.level = level;
 	}
 
