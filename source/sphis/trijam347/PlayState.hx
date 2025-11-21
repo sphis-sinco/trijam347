@@ -27,10 +27,11 @@ class PlayState extends FlxState
 				if (Std.parseInt(tile) != 0)
 				{
 					var tile_sprite = new Tile(Std.parseInt(tile));
-					tile_sprite.setPosition(x * 8, y * 8);
+					tile_sprite.scale.set(2, 2);
+					tile_sprite.setPosition((x * 8) * tile_sprite.scale.x, (y * 8) * tile_sprite.scale.y);
 					mapTiles.add(tile_sprite);
 				}
-				
+
 				x++;
 			}
 
