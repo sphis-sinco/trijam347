@@ -1,5 +1,6 @@
 package sphis.trijam347;
 
+import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.FlxState;
@@ -39,6 +40,7 @@ class GameOver extends FlxState
                 chebys.updateHitbox();
                 chebys.screenCenter();
                 add(chebys);
+                FlxG.camera.flash(FlxColor.BLACK);
         }
 	}
 }
