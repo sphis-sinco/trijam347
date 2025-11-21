@@ -4,3 +4,4 @@ THEY'LL CATCH YOU.
 You have a job to finish.
 79 6f 75 20\n64 65 73 65\n72 76 65 64\n20 74 6f 20\n62 65 20 66\n69 72 65 64 2e
 52 45 56 45 4e 47 45
+"Just go get drunk again."

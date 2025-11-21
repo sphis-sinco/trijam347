@@ -1,5 +1,6 @@
 package sphis.trijam347;
 
+import flixel.effects.FlxFlicker;
 import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -117,7 +118,7 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 
-		if (FlxG.keys.anyJustReleased([W, A, S, D, LEFT, DOWN, UP, RIGHT, SPACE]) && objective.visible)
+		if (FlxG.keys.anyJustReleased([W, A, S, D, LEFT, DOWN, UP, RIGHT]) && objective.visible)
 		{
 			objective.visible = false;
 		}
@@ -130,7 +131,10 @@ class PlayState extends FlxState
 
 			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
+				{
 					player.x += player.width;
+					FlxFlicker.flicker(tile, .2);
+				}
 		}
 		if (FlxG.keys.anyJustReleased([D, RIGHT]))
 		{
@@ -140,7 +144,10 @@ class PlayState extends FlxState
 
 			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
+				{
 					player.x -= player.width;
+					FlxFlicker.flicker(tile, .2);
+				}
 		}
 
 		if (FlxG.keys.anyJustReleased([W, UP]))
@@ -150,7 +157,10 @@ class PlayState extends FlxState
 
 			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
+				{
 					player.y += player.height;
+					FlxFlicker.flicker(tile, .2);
+				}
 		}
 		if (FlxG.keys.anyJustReleased([S, DOWN]))
 		{
@@ -159,7 +169,10 @@ class PlayState extends FlxState
 
 			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
+				{
 					player.y -= player.height;
+					FlxFlicker.flicker(tile, .2);
+				}
 		}
 
 		if (FlxG.keys.anyJustReleased([SPACE]))
@@ -201,9 +214,9 @@ class PlayState extends FlxState
 							}
 							else
 							{
-								objective.text = (Assets.getText('assets/data/CLEAN.txt').split('\n')[
+								objective.text = Std.string((Assets.getText('assets/data/CLEAN.txt').split('\n')[
 									FlxG.random.int(0, Assets.getText('assets/data/CLEAN.txt').split('\n').length - 1)
-								]) ?? "CLEAN.";
+								])).replace('\\n', '\n') ?? "CLEAN.";
 								objective.color = FlxColor.RED;
 								objective.screenCenter();
 								objective.visible = true;
