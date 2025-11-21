@@ -9,18 +9,56 @@ using StringTools;
 
 class PlayState extends FlxState
 {
-	var mapTiles:FlxTypedGroup<Tile>;
+	var map_tiles:FlxTypedGroup<Tile>;
+	var map_tiles_overlay:FlxTypedGroup<Tile>;
 
 	var player:Player;
+
+	var level:Int = 1;
 
 	override public function create()
 	{
 		super.create();
 
-		mapTiles = new FlxTypedGroup<Tile>();
-		add(mapTiles);
+		map_tiles = new FlxTypedGroup<Tile>();
+		add(map_tiles);
 
-		var map = Assets.getText('assets/data/map-1.txt');
+		map_tiles_overlay = new FlxTypedGroup<Tile>();
+		add(map_tiles_overlay);
+
+		map_tiles = readMap('map-' + level);
+		map_tiles_overlay = readMap('map-' + level + '-overlay');
+
+		if (map_tiles == null)
+			throw 'NULL MAP : WTF';
+
+		player = new Player();
+		player.scale.set(2, 2);
+		player.updateHitbox();
+
+		var startPosFile:Array<String> = Assets.exists('assets/data/map-' + level + '.txt') ? Assets.getText('assets/data/map-' + level + '.txt')
+			.split('\n') : ['0', '0'];
+		var startPosX:Int = Std.parseInt(startPosFile[0]);
+		var startPosY:Int = Std.parseInt(startPosFile[1]);
+
+		player.setPosition((startPosX * 8) * 4, (startPosY * 8) * 4);
+		player.animation.play('walk');
+		add(player);
+		player.dir = 0;
+
+		FlxG.camera.zoom = 2;
+		FlxG.camera.follow(player, LOCKON, 1);
+	}
+
+	public function readMap(name:String = 'map'):FlxTypedGroup<Tile>
+	{
+		var new_map_tiles = new FlxTypedGroup<Tile>();
+		add(new_map_tiles);
+
+		if (!Assets.exists('assets/data/' + name + '.txt'))
+			return null;
+
+		var map = Assets.getText('assets/data/' + name + '.txt');
 		var x = 0;
 		var y = 0;
 		for (tileGroup in map.split('\n'))
@@ -32,7 +70,7 @@ class PlayState extends FlxState
 					var tile_sprite = new Tile(Std.parseInt(tile));
 					tile_sprite.scale.set(4, 4);
 					tile_sprite.setPosition((x * 8) * tile_sprite.scale.x, (y * 8) * tile_sprite.scale.y);
-					mapTiles.add(tile_sprite);
+					new_map_tiles.add(tile_sprite);
 				}
 
 				x++;
@@ -42,16 +80,7 @@ class PlayState extends FlxState
 			x = 0;
 		}
 
-		player = new Player();
-		player.scale.set(2, 2);
-		player.updateHitbox();
-		player.setPosition((7 * 8) * 4, (13 * 8) * 4);
-		player.animation.play('walk');
-		add(player);
-		player.dir = 0;
-
-		FlxG.camera.zoom = 2;
-		FlxG.camera.follow(player, LOCKON, 1);
+		return new_map_tiles;
 	}
 
 	override public function update(elapsed:Float)
@@ -64,7 +93,7 @@ class PlayState extends FlxState
 			player.dir = 0;
 			player.x -= player.width;
 
-			for (tile in mapTiles.members)
+			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
 					player.x += player.width;
 		}
@@ -74,7 +103,7 @@ class PlayState extends FlxState
 			player.dir = 1;
 			player.x += player.width;
 
-			for (tile in mapTiles.members)
+			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
 					player.x -= player.width;
 		}
@@ -84,7 +113,7 @@ class PlayState extends FlxState
 			player.dir = 2;
 			player.y -= player.height;
 
-			for (tile in mapTiles.members)
+			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
 					player.y += player.height;
 		}
@@ -93,7 +122,7 @@ class PlayState extends FlxState
 			player.dir = 3;
 			player.y += player.height;
 
-			for (tile in mapTiles.members)
+			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists && tile.has_collisions)
 					player.y -= player.height;
 		}
@@ -112,7 +141,7 @@ class PlayState extends FlxState
 					player.y += player.height;
 			}
 
-			for (tile in mapTiles.members)
+			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists)
 					tile.interaction();
 
