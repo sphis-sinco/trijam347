@@ -67,7 +67,7 @@ class PlayState extends FlxState
 
 		objective = new FlxText();
 		objective.size = 16;
-		objective.text = "Clean up your mess.";
+		objective.text = "Clean up your mess.\n(Space)";
 		add(objective);
 		objective.scrollFactor.set();
 		objective.screenCenter();
@@ -116,7 +116,7 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 
-		if (FlxG.keys.anyJustReleased([W, A, S, D, LEFT, DOWN, UP, RIGHT]) && objective.visible)
+		if (FlxG.keys.anyJustReleased([W, A, S, D, LEFT, DOWN, UP, RIGHT, SPACE]) && objective.visible)
 		{
 			objective.visible = false;
 		}
@@ -161,7 +161,7 @@ class PlayState extends FlxState
 					player.y -= player.height;
 		}
 
-		if (FlxG.keys.anyJustReleased([ENTER]))
+		if (FlxG.keys.anyJustReleased([SPACE]))
 		{
 			switch (player.dir)
 			{
