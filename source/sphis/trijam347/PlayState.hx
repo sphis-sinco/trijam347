@@ -134,7 +134,6 @@ class PlayState extends FlxState
 				{
 					player.x += player.width;
 					FlxFlicker.flicker(tile, .2);
-					break;
 				}
 		}
 		if (FlxG.keys.anyJustReleased([D, RIGHT]))
@@ -148,7 +147,6 @@ class PlayState extends FlxState
 				{
 					player.x -= player.width;
 					FlxFlicker.flicker(tile, .2);
-					break;
 				}
 		}
 
@@ -162,7 +160,6 @@ class PlayState extends FlxState
 				{
 					player.y += player.height;
 					FlxFlicker.flicker(tile, .2);
-					break;
 				}
 		}
 		if (FlxG.keys.anyJustReleased([S, DOWN]))
@@ -175,7 +172,6 @@ class PlayState extends FlxState
 				{
 					player.y -= player.height;
 					FlxFlicker.flicker(tile, .2);
-					break;
 				}
 		}
 
@@ -227,7 +223,6 @@ class PlayState extends FlxState
 							}
 						}
 					});
-					break;
 				}
 
 			switch (player.dir)
