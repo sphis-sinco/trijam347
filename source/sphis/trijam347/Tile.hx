@@ -28,5 +28,15 @@ class Tile extends FlxSprite
 		}
 	}
 
-	public function interaction() {}
+	public function interaction() {
+		switch(this.animation.frameIndex)
+		{
+			case 1:
+				setTile(0);
+			case 2:
+				setTile(1);
+			case 3:
+				this.destroy();
+		}
+	}
 }
