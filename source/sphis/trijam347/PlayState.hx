@@ -14,39 +14,31 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		mapTiles = new FlxSpriteGroup();
+		mapTiles = new FlxSpriteGroup(16, 16);
 		add(mapTiles);
 
 		var map = Assets.getText('assets/data/map.txt');
 		var x = 0;
 		var y = 0;
-		var i = 0;
-		for (tileGroup in map.split('\n'))
+		for (tileGroup in map.split(' '))
 		{
-			trace(tileGroup);
-
-			i = 0;
-			var tile = tileGroup.charAt(i);
-
-			while (i < tile.length)
+			for (tile in tileGroup.split('\n'))
 			{
 				if (Std.parseInt(tile) != 0)
 				{
-					var tile_sprite = new Tile(Std.parseInt(tile));
+					var tile_sprite = new Tile(Std.parseInt(tile) - 1);
 					tile_sprite.setPosition(x * 8, y * 8);
 					mapTiles.add(tile_sprite);
 				}
 
-				if (x > 16)
+				if (x >= 16)
 				{
 					y++;
 					x = 0;
 				}
 
-				i++;
 				x++;
 			}
-			trace(x);
 		}
 	}
 
