@@ -60,6 +60,7 @@ class GameOver extends FlxState
                 add(chebys);
                 FlxG.camera.flash(FlxColor.BLACK);
             case 2:
+                FlxG.sound.play('assets/sounds/open-door.wav', 1.0);
                 chebys.loadGraphic('assets/images/gameoverslide/chebys-open.png');
                 FlxTween.tween(chebys, {y: FlxG.height * 2}, 4, {
                     onComplete: t -> {
