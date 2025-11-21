@@ -45,6 +45,7 @@ class PlayState extends FlxState
 		player = new Player();
 		player.screenCenter();
 		player.scale.set(2, 2);
+		player.updateHitbox();
 		add(player);
 
 		FlxG.camera.zoom = 2;
@@ -54,5 +55,15 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		if (FlxG.keys.anyPressed([A, LEFT]))
+			player.x -= 10;
+		if (FlxG.keys.anyPressed([D, RIGHT]))
+			player.x += 10;
+
+		if (FlxG.keys.anyPressed([W, UP]))
+			player.y -= 10;
+		if (FlxG.keys.anyPressed([S, DOWN]))
+			player.y += 10;
 	}
 }
