@@ -20,11 +20,15 @@ class PlayState extends FlxState
 		var map = Assets.getText('assets/data/map.txt');
 		var x = 0;
 		var y = 0;
+		var i = 0;
 		for (tileGroup in map.split('\n'))
 		{
 			trace(tileGroup);
 
-			for (tile in tileGroup.split(' '))
+			i = 0;
+			var tile = tileGroup.charAt(i);
+
+			while (i < tile.length)
 			{
 				if (Std.parseInt(tile) != 0)
 				{
@@ -39,6 +43,7 @@ class PlayState extends FlxState
 					x = 0;
 				}
 
+				i++;
 				x++;
 			}
 			trace(x);
