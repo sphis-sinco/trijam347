@@ -43,9 +43,9 @@ class PlayState extends FlxState
 		}
 
 		player = new Player();
-		player.screenCenter();
 		player.scale.set(2, 2);
 		player.updateHitbox();
+		player.setPosition((7 * 8) * 4, (13 * 8) * 4);
 		player.animation.play('walk');
 		add(player);
 
