@@ -4,6 +4,8 @@ import lime.utils.Assets;
 import flixel.FlxState;
 import flixel.group.FlxSpriteGroup;
 
+using StringTools;
+
 class PlayState extends FlxState
 {
 	var mapTiles:FlxSpriteGroup;
@@ -18,14 +20,16 @@ class PlayState extends FlxState
 		var map = Assets.getText('assets/data/map.txt');
 		var x = 0;
 		var y = 0;
-		for (tile in map.split('\n'))
+		for (tileGroup in map.split(' '))
 		{
-			if (Std.parseInt(tile) > 0)
+			for (tile in tileGroup.split('\n'))
 			{
-				var tile_sprite = new Tile(Std.parseInt(tile) - 1);
-				trace(tile_sprite.animation.frameIndex);
-				tile_sprite.setPosition(x * 8, y * 8);
-				mapTiles.add(tile_sprite);
+				if (Std.parseInt(tile) != 0)
+				{
+					var tile_sprite = new Tile(Std.parseInt(tile) - 1);
+					tile_sprite.setPosition(x * 8, y * 8);
+					mapTiles.add(tile_sprite);
+				}
 			}
 
 			if (x >= 16)
