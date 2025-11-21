@@ -30,7 +30,7 @@ class Tile extends FlxSprite
 			case 1,2:
 				cleaned = false;
 				was_dirty = true;
-			case 3:
+			case 3, 10, 11, 8, 9, 12, 13:
 				has_collisions = false;
 		}
 	}

@@ -38,11 +38,7 @@ class PlayState extends FlxState
 		map_tiles = new FlxTypedGroup<Tile>();
 		add(map_tiles);
 
-		map_tiles_overlay = new FlxTypedGroup<Tile>();
-		add(map_tiles_overlay);
-
 		map_tiles = readMap('map-' + level);
-		map_tiles_overlay = readMap('map-' + level + '-overlay');
 
 		if (map_tiles == null)
 			throw 'NULL MAP : WTF';
@@ -61,6 +57,10 @@ class PlayState extends FlxState
 		player.animation.play('walk');
 		add(player);
 		player.dir = 0;
+
+		map_tiles_overlay = new FlxTypedGroup<Tile>();
+		add(map_tiles_overlay);
+		map_tiles_overlay = readMap('map-' + level + '-overlay');
 
 		FlxG.camera.zoom = 2;
 		FlxG.camera.follow(player, LOCKON, 1);
