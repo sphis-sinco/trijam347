@@ -1,5 +1,6 @@
 package sphis.trijam347;
 
+import lime.app.Application;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -37,7 +38,7 @@ class GameOver extends FlxState
 		add(proceed);
 		proceed.visible = false;
 		proceed.scrollFactor.set();
-        proceed.y = FlxG.height - proceed.height;
+		proceed.y = FlxG.height - proceed.height;
 
 		changeSlide();
 	}
@@ -76,7 +77,7 @@ class GameOver extends FlxState
 				FlxG.camera.flash(FlxColor.BLACK);
 				proceed.visible = true;
 			case 2:
-                proceed.text = "proceed.";
+				proceed.text = "proceed.";
 				FlxG.sound.play('assets/sounds/open-door.wav', 1.0);
 				chebys.loadGraphic('assets/images/gameoverslide/chebys-open.png');
 				FlxTween.tween(chebys, {y: FlxG.height * 2}, 4, {
@@ -98,12 +99,13 @@ class GameOver extends FlxState
 					}
 				});
 			case 3:
+				proceed.text = "do it.";
 				yener = new FlxSprite();
 				yener.loadGraphic('assets/images/gameoverslide/yener.png');
 				add(yener);
 				yener.setPosition(player.x, player.y - (player.height * 4));
 				yener.scale.set(player.scale.x, player.scale.y);
-                yener.updateHitbox();
+				yener.updateHitbox();
 
 				FlxTween.tween(yener, {y: yener.y + (yener.height * 2)}, 4, {
 					ease: FlxEase.sineInOut,
@@ -116,12 +118,16 @@ class GameOver extends FlxState
 					}
 				});
 			case 4:
+				proceed.text = "run.";
 				player.visible = false;
 				yener.visible = false;
-				FlxG.camera.flash(FlxColor.RED, 1, () ->
+				FlxG.camera.flash(FlxColor.RED, 1, () -> {});
+				FlxG.sound.play('assets/sounds/death.wav', 1.0, false, null, true, () ->
 				{
 					proceed.visible = true;
 				});
+			case 5:
+				Application.current.window.close();
 		}
 
 		add(proceed);
