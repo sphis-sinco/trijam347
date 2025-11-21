@@ -1,5 +1,6 @@
 package sphis.trijam347;
 
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
@@ -15,6 +16,8 @@ class GameOver extends FlxState
 	var player:Player;
 	var yener:FlxSprite;
 
+	var proceed:FlxText;
+
 	override function create()
 	{
 		super.create();
@@ -28,6 +31,14 @@ class GameOver extends FlxState
 		player.x -= player.width * 2;
 		add(player);
 
+		proceed = new FlxText();
+		proceed.size = 16;
+		proceed.text = "proceed. (space)";
+		add(proceed);
+		proceed.visible = false;
+		proceed.scrollFactor.set();
+        proceed.y = FlxG.height - proceed.height;
+
 		changeSlide();
 	}
 
@@ -35,7 +46,7 @@ class GameOver extends FlxState
 	{
 		super.update(elapsed);
 
-		if (FlxG.keys.justReleased.SPACE)
+		if (FlxG.keys.justReleased.SPACE && proceed.visible)
 		{
 			slide++;
 			changeSlide();
@@ -44,6 +55,8 @@ class GameOver extends FlxState
 
 	public function changeSlide()
 	{
+		remove(proceed);
+		proceed.visible = false;
 		switch (slide)
 		{
 			case 1:
@@ -61,13 +74,16 @@ class GameOver extends FlxState
 
 				add(chebys);
 				FlxG.camera.flash(FlxColor.BLACK);
+				proceed.visible = true;
 			case 2:
+                proceed.text = "proceed.";
 				FlxG.sound.play('assets/sounds/open-door.wav', 1.0);
 				chebys.loadGraphic('assets/images/gameoverslide/chebys-open.png');
 				FlxTween.tween(chebys, {y: FlxG.height * 2}, 4, {
 					onComplete: t ->
 					{
 						chebys.visible = false;
+						proceed.visible = true;
 					},
 					ease: FlxEase.sineInOut,
 					startDelay: 1,
@@ -81,24 +97,34 @@ class GameOver extends FlxState
 						});
 					}
 				});
-            case 3:
-                yener = new FlxSprite();
-                yener.loadGraphic('assets/images/gameoverslide/yener.png');
-                add(yener);
-                yener.setPosition(player.x, player.y -= (player.height * 10));
+			case 3:
+				yener = new FlxSprite();
+				yener.loadGraphic('assets/images/gameoverslide/yener.png');
+				add(yener);
+				yener.setPosition(player.x, player.y - (player.height * 4));
+				yener.scale.set(player.scale.x, player.scale.y);
+                yener.updateHitbox();
 
-				FlxTween.tween(player, {y: player.y += (player.height * 10)}, 4, {
+				FlxTween.tween(yener, {y: yener.y + (yener.height * 2)}, 4, {
 					ease: FlxEase.sineInOut,
-                });
-				FlxTween.tween(yener, {y: yener.y += (yener.height * 10)}, 4, {
+				});
+				FlxTween.tween(player, {y: player.y + (player.height * 2)}, 4, {
 					ease: FlxEase.sineInOut,
-                });
-            case 4:
-                player.visible = false;
-                yener.visible = false;
-				FlxG.camera.flash(FlxColor.RED);
+					onComplete: t ->
+					{
+						proceed.visible = true;
+					}
+				});
+			case 4:
+				player.visible = false;
+				yener.visible = false;
+				FlxG.camera.flash(FlxColor.RED, 1, () ->
+				{
+					proceed.visible = true;
+				});
 		}
 
-        trace(slide);
+		add(proceed);
+		trace(slide);
 	}
 }
