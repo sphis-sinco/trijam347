@@ -9,6 +9,6 @@ class Player extends FlxSprite
 		super();
 
 		loadGraphic('assets/images/player.png', true, 16, 18);
-		animation.add('walk', [0, 1, 0, 2], 8);
+		animation.add('walk', [0, 1, 0, 2], 2);
 	}
 }
