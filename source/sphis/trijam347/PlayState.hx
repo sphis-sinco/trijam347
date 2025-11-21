@@ -1,15 +1,15 @@
 package sphis.trijam347;
 
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxG;
 import lime.utils.Assets;
 import flixel.FlxState;
-import flixel.group.FlxSpriteGroup;
 
 using StringTools;
 
 class PlayState extends FlxState
 {
-	var mapTiles:FlxSpriteGroup;
+	var mapTiles:FlxTypedGroup<Tile>;
 
 	var player:Player;
 
@@ -17,7 +17,7 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		mapTiles = new FlxSpriteGroup();
+		mapTiles = new FlxTypedGroup<Tile>();
 		add(mapTiles);
 
 		var map = Assets.getText('assets/data/map.txt');
@@ -63,7 +63,7 @@ class PlayState extends FlxState
 			player.x -= player.width;
 
 			for (tile in mapTiles.members)
-				if (player.overlaps(tile))
+				if (player.overlaps(tile) && tile.has_collisions)
 					player.x += player.width;
 		}
 		if (FlxG.keys.anyJustReleased([D, RIGHT]))
@@ -72,7 +72,7 @@ class PlayState extends FlxState
 			player.x += player.width;
 
 			for (tile in mapTiles.members)
-				if (player.overlaps(tile))
+				if (player.overlaps(tile) && tile.has_collisions)
 					player.x -= player.width;
 		}
 
@@ -81,7 +81,7 @@ class PlayState extends FlxState
 			player.y -= player.height;
 
 			for (tile in mapTiles.members)
-				if (player.overlaps(tile))
+				if (player.overlaps(tile) && tile.has_collisions)
 					player.y += player.height;
 		}
 		if (FlxG.keys.anyJustReleased([S, DOWN]))
@@ -89,7 +89,7 @@ class PlayState extends FlxState
 			player.y += player.height;
 
 			for (tile in mapTiles.members)
-				if (player.overlaps(tile))
+				if (player.overlaps(tile) && tile.has_collisions)
 					player.y -= player.height;
 		}
 	}
