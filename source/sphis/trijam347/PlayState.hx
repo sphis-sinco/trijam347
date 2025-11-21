@@ -20,7 +20,7 @@ class PlayState extends FlxState
 		mapTiles = new FlxTypedGroup<Tile>();
 		add(mapTiles);
 
-		var map = Assets.getText('assets/data/map.txt');
+		var map = Assets.getText('assets/data/map-1.txt');
 		var x = 0;
 		var y = 0;
 		for (tileGroup in map.split('\n'))
