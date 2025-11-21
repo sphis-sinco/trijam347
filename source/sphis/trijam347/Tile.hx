@@ -19,12 +19,14 @@ class Tile extends FlxSprite
 	{
 		this.animation.frameIndex = tile;
 
-        switch(tile)
-        {
-            default:
-                has_collisions = true;
-            case 3:
-                has_collisions = false;
-        }
+		switch (tile)
+		{
+			default:
+				has_collisions = true;
+			case 3:
+				has_collisions = false;
+		}
 	}
+
+	public function interaction() {}
 }
