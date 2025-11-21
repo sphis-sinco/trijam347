@@ -1,5 +1,6 @@
 package sphis.trijam347;
 
+import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxG;
@@ -197,6 +198,15 @@ class PlayState extends FlxState
 								{
 									FlxG.switchState(() -> new GameOver());
 								}
+							}
+							else
+							{
+								objective.text = (Assets.getText('assets/data/CLEAN.txt').split('\n')[
+									FlxG.random.int(0, Assets.getText('assets/data/CLEAN.txt').split('\n').length - 1)
+								]) ?? "CLEAN.";
+								objective.color = FlxColor.RED;
+								objective.screenCenter();
+								objective.visible = true;
 							}
 						}
 					});
