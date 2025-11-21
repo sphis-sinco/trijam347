@@ -1,5 +1,6 @@
 package sphis.trijam347;
 
+import flixel.text.FlxText;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxG;
 import lime.utils.Assets;
@@ -9,6 +10,8 @@ using StringTools;
 
 class PlayState extends FlxState
 {
+	var objective:FlxText;
+
 	var map_tiles:FlxTypedGroup<Tile>;
 	var map_tiles_overlay:FlxTypedGroup<Tile>;
 
@@ -61,6 +64,14 @@ class PlayState extends FlxState
 
 		FlxG.camera.zoom = 2;
 		FlxG.camera.follow(player, LOCKON, 1);
+
+		objective = new FlxText();
+		objective.size = 16;
+		objective.text = "Clean up your mess.";
+		add(objective);
+		objective.visible = true;
+		objective.scrollFactor.set();
+		objective.y = FlxG.height - objective.height;
 	}
 
 	public function readMap(name:String = 'map'):FlxTypedGroup<Tile>
@@ -105,6 +116,11 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		if (FlxG.keys.anyJustReleased([W, A, S, D, LEFT, DOWN, UP, RIGHT]) && objective.visible)
+		{
+			objective.visible = false;
+		}
 
 		if (FlxG.keys.anyJustReleased([A, LEFT]))
 		{
@@ -177,7 +193,9 @@ class PlayState extends FlxState
 								if (next_level != null)
 								{
 									FlxG.switchState(() -> new PlayState(next_level));
-								} else {
+								}
+								else
+								{
 									FlxG.switchState(() -> new GameOver());
 								}
 							}

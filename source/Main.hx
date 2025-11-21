@@ -1,5 +1,6 @@
 package;
 
+import sphis.trijam347.PlayState;
 import flixel.FlxGame;
 import openfl.display.Sprite;
 
@@ -8,6 +9,6 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
-		addChild(new FlxGame(0, 0, sphis.trijam347.GameOver));
+		addChild(new FlxGame(0, 0, PlayState));
 	}
 }
