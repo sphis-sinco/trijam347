@@ -14,11 +14,23 @@ class PlayState extends FlxState
 
 	var player:Player;
 
-	var level:Int = 1;
+	var level:String = '1';
+	var next_level:String = null;
+
+	var dirty_tiles_start:Int = 0;
+	var dirty_tiles:Int = 0;
+
+	override public function new(level:String = '1')
+	{
+		super();
+		this.level = level;
+	}
 
 	override public function create()
 	{
 		super.create();
+
+		next_level = Assets.exists('assets/data/map-' + level + '-next.txt') ? Assets.getText('assets/data/map-' + level + '-next.txt') : null;
 
 		map_tiles = new FlxTypedGroup<Tile>();
 		add(map_tiles);
@@ -36,7 +48,8 @@ class PlayState extends FlxState
 		player.scale.set(2, 2);
 		player.updateHitbox();
 
-		var startPosFile:Array<String> = Assets.exists('assets/data/map-' + level + '-startpos.txt') ? Assets.getText('assets/data/map-' + level + '-startpos.txt')
+		var startPosFile:Array<String> = Assets.exists('assets/data/map-' + level + '-startpos.txt') ? Assets.getText('assets/data/map-' + level
+			+ '-startpos.txt')
 			.split('\n') : ['0', '0'];
 		var startPosX:Int = Std.parseInt(startPosFile[0]);
 		var startPosY:Int = Std.parseInt(startPosFile[1]);
@@ -67,6 +80,12 @@ class PlayState extends FlxState
 			{
 				if (Std.parseInt(tile) != 0)
 				{
+					if (Std.parseInt(tile) - 1 == 1 || Std.parseInt(tile) - 1 == 2)
+					{
+						dirty_tiles++;
+						dirty_tiles_start++;
+					}
+
 					var tile_sprite = new Tile(Std.parseInt(tile));
 					tile_sprite.scale.set(4, 4);
 					tile_sprite.setPosition((x * 8) * tile_sprite.scale.x, (y * 8) * tile_sprite.scale.y);
@@ -141,9 +160,30 @@ class PlayState extends FlxState
 					player.y += player.height;
 			}
 
+			dirty_tiles = dirty_tiles_start;
 			for (tile in map_tiles.members)
 				if (player.overlaps(tile) && tile.exists)
-					tile.interaction();
+				{
+					tile.interaction((tile_number:Int) ->
+					{
+						if (tile_number == 4)
+						{
+							for (tile in map_tiles.members)
+								if (tile.cleaned && tile.was_dirty)
+									dirty_tiles--;
+
+							if (dirty_tiles == 0)
+							{
+								if (next_level != null)
+								{
+									FlxG.switchState(() -> new PlayState(next_level));
+								} else {
+									FlxG.switchState(() -> new GameOver());
+								}
+							}
+						}
+					});
+				}
 
 			switch (player.dir)
 			{

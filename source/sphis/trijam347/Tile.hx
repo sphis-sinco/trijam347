@@ -5,6 +5,8 @@ import flixel.FlxSprite;
 class Tile extends FlxSprite
 {
 	public var has_collisions:Bool = true;
+	public var cleaned:Bool = true;
+	public var was_dirty:Bool = false;
 
 	override public function new(tile_index:Int = 1)
 	{
@@ -23,12 +25,17 @@ class Tile extends FlxSprite
 		{
 			default:
 				has_collisions = true;
+				cleaned = true;
+				was_dirty = false;
+			case 1,2:
+				cleaned = false;
+				was_dirty = true;
 			case 3:
 				has_collisions = false;
 		}
 	}
 
-	public function interaction()
+	public function interaction(?additional_func:Dynamic)
 	{
 		if (!exists)
 			return;
@@ -36,11 +43,15 @@ class Tile extends FlxSprite
 		switch (this.animation.frameIndex)
 		{
 			case 1:
+				cleaned = true;
 				setTile(0);
 			case 2:
 				setTile(1);
 			case 3:
 				this.destroy();
+			default:
+				if (additional_func != null)
+					additional_func(this.animation.frameIndex);
 		}
 	}
 }
