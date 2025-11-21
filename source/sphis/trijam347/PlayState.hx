@@ -35,7 +35,7 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		next_level = Assets.exists('assets/data/map-' + level + '-next.txt') ? Assets.getText('assets/data/map-' + level + '-next.txt') : null;
+		next_level = Assets.exists('assets/data/maps/map-' + level + '-next.txt') ? Assets.getText('assets/data/maps/map-' + level + '-next.txt') : null;
 
 		map_tiles = new FlxTypedGroup<Tile>();
 		add(map_tiles);
@@ -49,7 +49,7 @@ class PlayState extends FlxState
 		player.scale.set(2, 2);
 		player.updateHitbox();
 
-		var startPosFile:Array<String> = Assets.exists('assets/data/map-' + level + '-startpos.txt') ? Assets.getText('assets/data/map-' + level
+		var startPosFile:Array<String> = Assets.exists('assets/data/maps/map-' + level + '-startpos.txt') ? Assets.getText('assets/data/maps/map-' + level
 			+ '-startpos.txt')
 			.split('\n') : ['0', '0'];
 		var startPosX:Int = Std.parseInt(startPosFile[0]);
@@ -80,10 +80,10 @@ class PlayState extends FlxState
 		var new_map_tiles = new FlxTypedGroup<Tile>();
 		add(new_map_tiles);
 
-		if (!Assets.exists('assets/data/' + name + '.txt'))
+		if (!Assets.exists('assets/data/maps/' + name + '.txt'))
 			return null;
 
-		var map = Assets.getText('assets/data/' + name + '.txt');
+		var map = Assets.getText('assets/data/maps/' + name + '.txt');
 		var x = 0;
 		var y = 0;
 		for (tileGroup in map.split('\n'))
