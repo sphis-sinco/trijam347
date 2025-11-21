@@ -13,6 +13,7 @@ class GameOver extends FlxState
 
 	var chebys:FlxSprite;
 	var player:Player;
+	var yener:FlxSprite;
 
 	override function create()
 	{
@@ -80,6 +81,24 @@ class GameOver extends FlxState
 						});
 					}
 				});
+            case 3:
+                yener = new FlxSprite();
+                yener.loadGraphic('assets/images/gameoverslide/yener.png');
+                add(yener);
+                yener.setPosition(player.x, player.y -= (player.height * 10));
+
+				FlxTween.tween(player, {y: player.y += (player.height * 10)}, 4, {
+					ease: FlxEase.sineInOut,
+                });
+				FlxTween.tween(yener, {y: yener.y += (yener.height * 10)}, 4, {
+					ease: FlxEase.sineInOut,
+                });
+            case 4:
+                player.visible = false;
+                yener.visible = false;
+				FlxG.camera.flash(FlxColor.RED);
 		}
+
+        trace(slide);
 	}
 }
