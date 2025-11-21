@@ -44,6 +44,7 @@ class PlayState extends FlxState
 
 		player = new Player();
 		player.screenCenter();
+		player.scale.set(2, 2);
 		add(player);
 
 		FlxG.camera.zoom = 2;
