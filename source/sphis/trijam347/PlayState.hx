@@ -43,9 +43,11 @@ class PlayState extends FlxState
 		}
 
 		player = new Player();
+		player.screenCenter();
 		add(player);
 
 		FlxG.camera.zoom = 2;
+		FlxG.camera.follow(player, LOCKON, .5);
 	}
 
 	override public function update(elapsed:Float)
