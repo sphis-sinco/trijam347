@@ -75,6 +75,9 @@ class PlayState extends FlxState
 		add(objective);
 		objective.scrollFactor.set();
 		objective.screenCenter();
+
+		FlxG.mouse.visible = false;
+		FlxG.camera.flash(FlxColor.BLACK);
 	}
 
 	public function readMap(name:String = 'map'):FlxTypedGroup<Tile>
