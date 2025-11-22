@@ -1,5 +1,6 @@
 package sphis.trijam347;
 
+import flixel.util.FlxTimer;
 import lime.app.Application;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -118,13 +119,16 @@ class GameOver extends FlxState
 					}
 				});
 			case 4:
-				proceed.text = "run.";
+				proceed.text = "Don't get caught.";
 				player.visible = false;
 				yener.visible = false;
 				FlxG.camera.flash(FlxColor.RED, 1, () -> {});
 				FlxG.sound.play('assets/sounds/death.wav', 1.0, false, null, true, () ->
 				{
-					proceed.visible = true;
+					FlxTimer.wait(5, () ->
+					{
+						proceed.visible = true;
+					});
 				});
 			case 5:
 				Application.current.window.close();
